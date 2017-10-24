@@ -7,7 +7,6 @@ import QueryList from '../../components/QueryList';
 import QueryHeader from '../../components/QueryHeader';
 import QueryEditor from '../../components/QueryEditor';
 import QueryResult from '../../components/QueryResult';
-
 class Query extends React.Component {
   componentDidMount() {
     Action.initialize();
@@ -28,6 +27,11 @@ class Query extends React.Component {
     let dataSource = this.state.dataSources.find(ds => ds.id === query.dataSourceId);
 
     Action.executeQuery({ query, dataSource, line });
+  }
+
+  handleFormat(query) {
+    let line = this.state.editor.line;
+    Action.executeFormat({ line });
   }
 
   handleCancel(query) {
@@ -68,6 +72,7 @@ class Query extends React.Component {
         onChangeCursorPosition={line => Action.updateEditor({ line })}
         onChangeEditorHeight={height => Action.updateEditor({ height })}
         onExecute={() => this.handleExecute(query)}
+        onFormat={() => this.handleFormat(query)}
         onCancel={() => this.handleCancel(query)}
         />
       <QueryResult query={query} {...this.state}

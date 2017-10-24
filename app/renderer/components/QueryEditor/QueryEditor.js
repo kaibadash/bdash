@@ -39,7 +39,7 @@ export default class QueryEditor extends React.Component {
     document.addEventListener('mouseup', handleResizeStop);
   }
 
-  renderButton() {
+  renderExecuteButton() {
     if (this.props.query.status === 'working') {
       return <Button className="QueryEditor-cancelBtn" onClick={() => this.props.onCancel()}>Cancel</Button>;
     }
@@ -47,6 +47,12 @@ export default class QueryEditor extends React.Component {
       return <Button className="QueryEditor-executeBtn" onClick={() => this.props.onExecute()}>Execute</Button>;
     }
   }
+
+  renderFormatButton() {
+    console.log("renderFormatButton");
+    return <Button className="QueryEditor-executeBtn" onClick={() => this.props.onFormat()}>Format</Button>;
+  }
+
 
   renderStatus() {
     switch (this.props.query.status) {
@@ -95,9 +101,11 @@ export default class QueryEditor extends React.Component {
         onChange={body => this.props.onChangeQueryBody(body)}
         onChangeCursor={line => this.props.onChangeCursorPosition(line)}
         onSubmit={() => this.props.onExecute()}
+        onFormat={() => this.props.onFormat()}
         options={this.options} />
       <div className="QueryEditor-navbar">
-        {this.renderButton()}
+        {this.renderExecuteButton()}
+        {this.renderFormatButton()}
         {this.renderStatus()}
         <span onMouseDown={this.handleResizeStart.bind(this)} className="QueryEditor-resize">
           <i className="fa fa-arrows-v" />

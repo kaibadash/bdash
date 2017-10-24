@@ -1,4 +1,5 @@
 import moment from 'moment';
+import SQLFormatter from 'sql-formatter'
 import { dispatch } from './QueryStore';
 import { setting } from '../../../lib/Setting';
 import Database from '../../../lib/Database';
@@ -81,6 +82,11 @@ const QueryAction = {
       fields: JSON.stringify(params.fields),
       rows: JSON.stringify(params.rows),
     }));
+  },
+
+  executeFormat(line) {
+    let formatted = SQLFormatter.format(line);
+    console.log(formatted);
   },
 
   cancelQuery(query) {
